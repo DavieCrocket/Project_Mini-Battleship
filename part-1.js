@@ -1,6 +1,5 @@
 /* 
 🛠 Requirements: Part 1
-
   1. When the application loads, print the text, "Press any key to start the game."
   2  When the user presses the key, your code will randomly place two different ships in two separate locations on the board. Each ship is only 1 unit long (In the real game ships are 2+ in length).
   3. The prompt will then say, "Enter a location to strike ie 'A2' "
@@ -37,6 +36,12 @@ function placeGrid(matrix) {
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
+
+// create ship coordinates
+function shipCoords() {
+  return board[getRandomInt(gridSize)][getRandomInt(gridSize)];
+}
+
 // place ships in the grid
 
 
@@ -52,5 +57,6 @@ gameRunning = runStart();
 console.log(gameRunning);
 const myGrid = makeGrid(gridSize);
 const board = placeGrid(myGrid);
+ship1 = shipCoords();
 
 console.log(board);
