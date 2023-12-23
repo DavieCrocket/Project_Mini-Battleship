@@ -13,44 +13,75 @@
 
 const rs = require('readline-sync'); 
 
+let arr = [];
+let grid = 3;
+let rows = grid;
+let columns = grid;
+let gameRunning = false;
+const alphabetList = 'ABCDEFGHIJ';
+const numberOfShips = 2;
+let shipLocations = [];
+
+
 // start or stop the game
  const runStart = () => {
   rs.question('Press any key to start the game. ');
   return true;
 };
 
-// grid size
-function makeGrid(grid) { const matrix = Array(grid).fill(Array(grid));
-  return matrix;
-};
 
-// null the grid
-function placeGrid(matrix) {
-  for (let i = 0; i < matrix.length; i++) {
-    for (let j = 0; j < matrix[i].length; j++) {
-      matrix[i][j] = null;
+// create the grid
+function createGrid(rows = grid, columns = grid) {
+  let playGrid = [];
+  for (let i = 0; i < rows; i++) {
+  playGrid[i] = [];
+    for (let j = 0; j < columns; j++) {
+      playGrid[i][j] = alphabetList[i] + (j+1);
     }
-  return matrix;
   }
+  return playGrid;
 };
 
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
+// create play grid
+let playGrid = createGrid(grid);
+
+// create ship coordinates
+function shipCoords() {
+  let a = Math.floor(Math.random() * grid);
+  let b = Math.floor(Math.random() * grid);
+  return [a,b];
 }
+
 // place ships in the grid
+const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
 
+const randomGridSquare = () => playGrid[getRandomInt(grid)][getRandomInt(grid)];
 
+const getShipLocations = (shipLocations) => {
+  // let ship1 = randomGridSquare();   
+  // let ship2 = randomGridSquare();
+  
+  for (let i = 0; i <= numberOfShips; i++) {
+    eval("ship"+ i +" = "+i);
+  }
+
+  if (ship1 === ship2) {
+    return getShipLocations();
+  } else {
+    shipLocations = [[{[ship1= randomGridSquare()]: 'Ship'}], 
+                     [{[ship2= randomGridSquare()]: 'Ship'}]];
+  }
+  return shipLocations;
+}
 
 // attack grid square
 // hit or miss
 // is game over
 // want to play again
 
-const gridSize = 3;
-let gameRunning = false;
-gameRunning = runStart(); 
-console.log(gameRunning);
-const myGrid = makeGrid(gridSize);
-const board = placeGrid(myGrid);
 
-console.log(board);
+
+// gameRunning = runStart(); 
+let myGrid = createGrid(grid);
+console.log(myGrid);
+console.log(getShipLocations());
